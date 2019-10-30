@@ -7,9 +7,15 @@ from api.serializers import *
 # Also add these imports
 from api.permissions import *
 
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.all().select_related('profile')
     serializer_class = UserSerializer
     permission_classes = (DjangoModelPermissions, )
 

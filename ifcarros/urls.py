@@ -3,15 +3,16 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.views import get_swagger_view
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 
-schema_view = get_schema_view(title='MINHA API', renderer_classes=[
-                              OpenAPIRenderer, SwaggerUIRenderer])
+# schema_view = get_schema_view(title='MINHA API')
+schema_view = get_swagger_view(title='IF Carros')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
-    url(r'^', schema_view, name="docs"),
+    url(r'^swagger', schema_view),
 ]
 
 if settings.DEBUG:

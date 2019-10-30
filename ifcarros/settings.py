@@ -3,10 +3,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^_0kqyl!_s-@v+f+g(89*g0t&ve$=_*l$$fry^#_yp37#rup&_'
 
@@ -14,9 +10,6 @@ SECRET_KEY = '^_0kqyl!_s-@v+f+g(89*g0t&ve$=_*l$$fry^#_yp37#rup&_'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -116,16 +109,25 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'api.User'
 
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_PERMISSION_CLASSES': (
-        # 'rest_framework.permissions.IsAuthenticated',
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.DjangoModelPermissions'
+        # 'rest_framework.permissions.IsAdminUser'
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
+    # 'DEFAULT_PARSER_CLASSES': [
+    #     'rest_framework.parsers.FormParser',
+    #     'rest_framework.parsers.MultiPartParser',
+    #     'rest_framework.parsers.JSONParser',
+    # ],
 }
 
 REST_USE_JWT = True
@@ -133,14 +135,14 @@ REST_USE_JWT = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = 'rest_framework:login'
-LOGOUT_URL = 'rest_framework:logout'
+# LOGIN_URL = 'rest_framework:login'
+# LOGOUT_URL = 'rest_framework:logout'
 
-# SWAGGER_SETTINGS = {
-#     'LOGIN_URL': 'rest_framework:login',
-#     'LOGOUT_URL': 'rest_framework:logout',
-#     'USE_SESSION_AUTH': True,
-#     'DOC_EXPANSION': 'list',
-#     'APIS_SORTER': 'alpha',
-#     'SHOW_REQUEST_HEADERS': True
-# }
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout',
+    'USE_SESSION_AUTH': True,
+    'DOC_EXPANSION': 'list',
+    'APIS_SORTER': 'alpha',
+    'SHOW_REQUEST_HEADERS': True,
+}

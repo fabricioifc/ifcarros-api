@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from api.models import User, UserProfile, Car
+from django.contrib.auth.models import Group
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -7,6 +8,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('dtnascimento', 'endereco', 'cidade', 'cep', 'avatar')
 
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('id', 'url', 'name')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     """
@@ -16,7 +21,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'email', 'name', 'password', 'profile')
+        fields = ('url', 'email', 'username', 'name', 'siape', 'password', 'profile', 'groups')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):

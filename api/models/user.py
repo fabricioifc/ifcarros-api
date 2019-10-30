@@ -10,12 +10,12 @@ class User(AbstractUser):
     name = models.CharField(blank=False, null=False, max_length=300)
     email = models.EmailField(_('email address'), unique=True)
     siape = models.PositiveIntegerField(blank=True, null=True)
-    is_servidor = models.BooleanField(
-        'Servidor', default=True, help_text='Indica que este usuário é Servidor do campus')
-    is_gestor = models.BooleanField(
-        'Gestor', default=False, help_text='Indica que este usuário é Gestor da frota')
-    is_diretor = models.BooleanField(
-        'Diretor', default=False, help_text='Indica que este usuário é Diretor do Campus')
+    # is_servidor = models.BooleanField(
+    #     'Servidor', default=True, help_text='Indica que este usuário é Servidor do campus')
+    # is_gestor = models.BooleanField(
+    #     'Gestor', default=False, help_text='Indica que este usuário é Gestor da frota')
+    # is_diretor = models.BooleanField(
+    #     'Diretor', default=False, help_text='Indica que este usuário é Diretor do Campus')
     is_superuser = models.BooleanField(
         'Admin', default=False, help_text='Indica que este usuário é Administrador')
 
