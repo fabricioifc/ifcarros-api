@@ -11,7 +11,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    '192.168.1.107'
+    '192.168.1.107',
+    '172.19.1.160'
 ]
 
 INSTALLED_APPS = [
@@ -26,7 +27,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'rest_framework_swagger',
-    'corsheaders',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -37,13 +38,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
 ]
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 
 # change to app.example.com in production settings
 # CORS_ORIGIN_WHITELIST = ['localhost:8000']
-CSRF_TRUSTED_ORIGINS = ['localhost:8000']
+# CSRF_TRUSTED_ORIGINS = ['localhost:8000']
 
 ROOT_URLCONF = 'ifcarros.urls'
 
@@ -132,6 +133,7 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
     ),
     # 'DEFAULT_PARSER_CLASSES': [
     #     'rest_framework.parsers.FormParser',
