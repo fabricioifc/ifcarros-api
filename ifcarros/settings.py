@@ -9,11 +9,12 @@ SECRET_KEY = '^_0kqyl!_s-@v+f+g(89*g0t&ve$=_*l$$fry^#_yp37#rup&_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '192.168.1.107',
-    '172.19.1.160'
-]
+# ALLOWED_HOSTS = [
+#     'localhost',
+#     '192.168.1.107',
+#     '172.19.1.160'
+# ]
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -27,7 +28,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'rest_framework_swagger',
-    # 'corsheaders',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -38,9 +39,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_NAME = "XCSRF-TOKEN"
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_EXPOSE_HEADERS = (
+    'Access-Control-Allow-Origin: *',
+)
 
 # change to app.example.com in production settings
 # CORS_ORIGIN_WHITELIST = ['localhost:8000']
@@ -158,3 +164,8 @@ SWAGGER_SETTINGS = {
     'APIS_SORTER': 'alpha',
     'SHOW_REQUEST_HEADERS': True,
 }
+
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:8000',
+#     'http://192.168.1.107:19000'
+# )
