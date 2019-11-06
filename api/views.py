@@ -1,6 +1,8 @@
 from rest_framework import viewsets
+from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import DjangoModelPermissions
+from rest_framework.response import Response
 
 from api.models import User, Car
 from api.serializers import *
@@ -18,6 +20,18 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().select_related('profile')
     serializer_class = UserSerializer
     permission_classes = (DjangoModelPermissions, )
+    # def list(self, request):
+    #     queryset = User.objects.all().select_related('profile')
+    #     serializer_class = UserSerializer
+    #     permission_classes = (DjangoModelPermissions, )
+
+    # def retrieve(self, request, pk=None):
+    #     queryset = User.objects.all().select_related('profile')
+    #     permission_classes = (DjangoModelPermissions, )
+    #     user = get_object_or_404(queryset, pk=pk)
+    #     serializer = UserSerializer(user)
+    #     return Response(serializer.data)
+    
 
     # Add this code block
     # def get_permissions(self):
