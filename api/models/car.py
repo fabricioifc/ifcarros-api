@@ -22,6 +22,7 @@ class Car(Geral):
     km = models.PositiveIntegerField()
     descricao = models.TextField(blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    imagem = models.ImageField(_("Foto do Veículo"), upload_to='uploads/car', height_field=None, width_field=None, max_length=None, null=True)
 
     class Meta:
         """Meta definition for Car."""
