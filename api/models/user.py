@@ -1,3 +1,4 @@
+from ..validators import validate_CPF
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
@@ -10,6 +11,8 @@ class User(AbstractUser):
     name = models.CharField(blank=False, null=False, max_length=300)
     email = models.EmailField(_('email address'), unique=True)
     siape = models.PositiveIntegerField(blank=True, null=True)
+    funcao = models.CharField(blank=True, null=True, max_length=45)
+    cpf = models.CharField(unique=True, blank=True, null=True, max_length=11, validators=[validate_CPF])
     # is_servidor = models.BooleanField(
     #     'Servidor', default=True, help_text='Indica que este usuário é Servidor do campus')
     # is_gestor = models.BooleanField(
