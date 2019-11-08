@@ -11,6 +11,10 @@ from .user import User
 class Passenger(Geral):
     nome = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name = "Passageiro"
+        verbose_name_plural = "Passageiros"
+
     def __str__(self):
         return self.nome
 
@@ -24,11 +28,11 @@ class Solicitation(Geral):
     dthrrequisicao = models.DateTimeField(editable=False, default=timezone.now)
     passageiros = models.ManyToManyField(Passenger)
 
-    # class Meta:
-    #     """Meta definition for Car."""
+    class Meta:
+        """Meta definition for Car."""
 
-    #     verbose_name = 'Solicitation'
-    #     verbose_name_plural = 'Solicitations'
+        verbose_name = 'Solicitação'
+        verbose_name_plural = 'Solicitações'
 
     # def __str__(self):
     #     """Unicode representation of Car."""

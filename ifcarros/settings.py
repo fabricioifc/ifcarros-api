@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -117,13 +118,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
-
-AUTH_USER_MODEL = 'api.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
@@ -153,6 +148,8 @@ REST_USE_JWT = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+
 # LOGIN_URL = 'rest_framework:login'
 # LOGOUT_URL = 'rest_framework:logout'
 
@@ -165,7 +162,4 @@ SWAGGER_SETTINGS = {
     'SHOW_REQUEST_HEADERS': True,
 }
 
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:8000',
-#     'http://192.168.1.107:19000'
-# )
+AUTH_USER_MODEL = 'api.User'

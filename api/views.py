@@ -69,3 +69,14 @@ class CarViewSet(viewsets.ModelViewSet):
     #     elif self.action == 'list' or self.action == 'destroy':
     #         permission_classes = [IsAdminUser]
     #     return [permission() for permission in permission_classes]
+
+
+class SolicitationViewSet(viewsets.ModelViewSet):
+    queryset = Solicitation.objects.all()
+    serializer_class = SolicitationSerializer
+    permission_classes = (DjangoModelPermissions, )
+
+class PassengerViewSet(viewsets.ModelViewSet):
+    queryset = Passenger.objects.all()
+    serializer_class = PassengerSerializer
+    permission_classes = (DjangoModelPermissions, )

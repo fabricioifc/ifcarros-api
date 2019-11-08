@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-08 18:25-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: api/admin.py:51
+msgid "Personal info"
+msgstr ""
+
+#: api/admin.py:52
+msgid "Permissions"
+msgstr ""
+
+#: api/models/car.py:25
+msgid "Foto do Veículo"
+msgstr ""
+
+#: api/models/user.py:12
+msgid "email address"
+msgstr ""
+
+#: api/validators.py:8
+msgid "CPF Inválido."
+msgstr ""
+
+#: api/validators.py:9
+msgid "Informe apenas números."
+msgstr ""
+
+#: api/validators.py:10
+msgid "Informe apenas 11 dígitos."
+msgstr ""

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import User, UserProfile, Car
+from api.models import User, UserProfile, Car, Passenger, Solicitation
 from django.contrib.auth.models import Group
 
 
@@ -76,6 +76,39 @@ class CarSerializer(serializers.HyperlinkedModelSerializer):
         instance.km = validated_data.get('km', instance.km)
         instance.descricao = validated_data.get(
             'descricao', instance.descricao)
+
+        if self.is_valid():
+            instance.save()
+
+        return instance
+
+class PassengerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Passenger
+        # fields = ('marca', 'modelo', 'ano', 'km', 'descricao')
+        fields = '__all__'
+        # exclude = ('user',)
+
+class SolicitationSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Solicitation
+        # fields = ('marca', 'modelo', 'ano', 'km', 'descricao')
+        fields = '__all__'
+        # exclude = ('user',)
+
+    # def create(self, validated_data):
+    #     car = Solicitation(**validated_data)
+    #     car.save()
+    #     # UserProfile.objects.create(user=user, **profile_data)
+    #     return car
+
+    def update(self, instance, validated_data):
+        # instance.marca = validated_data.get('marca', instance.marca)
+        # instance.modelo = validated_data.get('modelo', instance.modelo)
+        # instance.ano = validated_data.get('ano', instance.ano)
+        # instance.km = validated_data.get('km', instance.km)
+        # instance.descricao = validated_data.get(
+        #     'descricao', instance.descricao)
 
         if self.is_valid():
             instance.save()
