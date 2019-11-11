@@ -8,7 +8,7 @@ from django.conf import settings
 class User(AbstractUser):
     username = models.CharField(
         blank=False, null=False, max_length=20, unique=True)
-    name = models.CharField(blank=False, null=False, max_length=300)
+    name = models.CharField(blank=False, null=False, max_length=300, verbose_name='Nome')
     email = models.EmailField(_('email address'), unique=True)
     siape = models.PositiveIntegerField(blank=True, null=True)
     funcao = models.CharField(blank=True, null=True, max_length=45)

@@ -2,7 +2,25 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import User, UserProfile, Car, Solicitation, Passenger
+from .models import *
+
+@admin.register(Autorization)
+class AutorizationAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'get_user_sol', 'get_dthr_sol', 'dthrautorizacao', 'get_user_aut', 'get_status_sol']
+    ordering = ['-dthrautorizacao']
+
+    def get_user_aut(self, obj):
+        return obj.user_autorizador.name
+    def get_user_sol(self, obj):
+        return obj.solicitation.user.name
+    def get_dthr_sol(self, obj):
+        return obj.solicitation.dthrrequisicao
+    def get_status_sol(self, obj):
+        return obj.solicitation.status
+    get_user_sol.short_description = 'Solicitante'
+    # get_user_aut.short_description = 'Autorizador'
+    get_dthr_sol.short_description = 'Data Solicitação'
+
 
 @admin.register(Passenger)
 class PassengerAdmin(admin.ModelAdmin):
@@ -11,10 +29,27 @@ class PassengerAdmin(admin.ModelAdmin):
 @admin.register(Solicitation)
 class SolicitationAdmin(admin.ModelAdmin):
     readonly_fields = ['user']
+    list_display = ['__str__', 'get_user_sol', 'dthrrequisicao', 'get_user_aut', 'get_dhtr_aut', 'status']
+    ordering = ['-dthrrequisicao', '-status']
+    list_filter = ('dthrrequisicao', 'status', 'autorization__user_autorizador__name', )
+    # actions = ['efetuar_autorizacao']
     
     def save_model(self, request, obj, form, change):
         obj.user = request.user
         super(SolicitationAdmin, self).save_model(request, obj, form, change)
+
+    def get_user_aut(self, obj):
+        return obj.autorization.user_autorizador.name
+    def get_dhtr_aut(self, obj):
+        return obj.autorization.dthrautorizacao
+    def get_user_sol(self, obj):
+        return obj.user.name
+    
+        # return format_html("<a href='{url}'>{url}</a>", url=obj.firm_url)
+
+    get_user_sol.short_description = 'Solicitado por'
+    get_user_aut.short_description = 'Autorizado por'
+    get_dhtr_aut.short_description = 'Autorizador em'
 
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
