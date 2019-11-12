@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('dthrautorizacao', models.DateTimeField(default=django.utils.timezone.now, editable=False)),
                 ('status', models.CharField(choices=[('analise', 'Em Análise'), ('autorizado', 'Autorizado'), ('nao_autorizado', 'Não Autorizado')], default='analise', max_length=30)),
                 ('solicitation', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='api.Solicitation')),
-                ('user_autorizador', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'verbose_name': 'Autorização',

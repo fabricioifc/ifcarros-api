@@ -1,4 +1,5 @@
 import os
+from django.conf.locale.pt_BR import formats as pt_br_formats
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -163,3 +164,4 @@ SWAGGER_SETTINGS = {
 }
 
 AUTH_USER_MODEL = 'api.User'
+pt_br_formats.DATETIME_FORMAT = "d/m/Y H:i"

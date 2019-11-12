@@ -1,25 +1,29 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.urls import reverse
 
 from .models import *
 
 @admin.register(Autorization)
 class AutorizationAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'get_user_sol', 'get_dthr_sol', 'dthrautorizacao', 'get_user_aut', 'get_status_sol']
+    readonly_fields = ('user', )
+    list_display = ['__str__', 'get_user_sol', 'get_dthr_sol', 'dthrautorizacao', 'get_user_aut', 'status']
     ordering = ['-dthrautorizacao']
 
     def get_user_aut(self, obj):
-        return obj.user_autorizador.name
+        return obj.user.name
     def get_user_sol(self, obj):
         return obj.solicitation.user.name
     def get_dthr_sol(self, obj):
         return obj.solicitation.dthrrequisicao
-    def get_status_sol(self, obj):
-        return obj.solicitation.status
     get_user_sol.short_description = 'Solicitante'
     # get_user_aut.short_description = 'Autorizador'
     get_dthr_sol.short_description = 'Data Solicitação'
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super(AutorizationAdmin, self).save_model(request, obj, form, change)
 
 
 @admin.register(Passenger)
@@ -28,10 +32,10 @@ class PassengerAdmin(admin.ModelAdmin):
 
 @admin.register(Solicitation)
 class SolicitationAdmin(admin.ModelAdmin):
-    readonly_fields = ['user']
-    list_display = ['__str__', 'get_user_sol', 'dthrrequisicao', 'get_user_aut', 'get_dhtr_aut', 'status']
-    ordering = ['-dthrrequisicao', '-status']
-    list_filter = ('dthrrequisicao', 'status', 'autorization__user_autorizador__name', )
+    readonly_fields = ['user', 'get_status_aut']
+    list_display = ['__str__', 'get_user_sol', 'dthrrequisicao', 'get_user_aut', 'get_dhtr_aut', 'get_status_aut']
+    # ordering = ['-dthrrequisicao', 'autorization__status']
+    list_filter = ('dthrrequisicao', 'autorization__user__name', 'autorization__status' )
     # actions = ['efetuar_autorizacao']
     
     def save_model(self, request, obj, form, change):
@@ -39,17 +43,23 @@ class SolicitationAdmin(admin.ModelAdmin):
         super(SolicitationAdmin, self).save_model(request, obj, form, change)
 
     def get_user_aut(self, obj):
-        return obj.autorization.user_autorizador.name
+        return obj.autorization.user.name
     def get_dhtr_aut(self, obj):
         return obj.autorization.dthrautorizacao
+    def get_status_aut(self, obj):
+        return obj.autorization.STATUS[obj.autorization.status]
     def get_user_sol(self, obj):
         return obj.user.name
-    
-        # return format_html("<a href='{url}'>{url}</a>", url=obj.firm_url)
+    # def my_link(self, obj):
+    #     # info = (obj._meta.app_label, obj._meta.model_name)
+    #     info = (obj._meta.app_label, 'autorization')
+    #     admin_url = reverse('admin:%s_%s_changelist' % info)
+    #     return admin_url
 
     get_user_sol.short_description = 'Solicitado por'
     get_user_aut.short_description = 'Autorizado por'
     get_dhtr_aut.short_description = 'Autorizador em'
+    get_status_aut.short_description = 'Status'
 
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
