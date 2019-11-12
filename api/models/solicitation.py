@@ -1,6 +1,9 @@
 import datetime
 # from model_utils import Choices
 from django.urls import reverse # new
+from django.core.exceptions import ObjectDoesNotExist
+from django.dispatch import receiver
+from model_utils import Choices
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -30,17 +33,25 @@ class Solicitation(Geral):
     dthrrequisicao = models.DateTimeField('Solicitado em', editable=False, default=timezone.now)
     passageiros = models.ManyToManyField(Passenger, verbose_name='Passageiros',)
     # status = models.CharField('Status',choices=STATUS, max_length=30, default=STATUS.solicitado)
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=True, null=True)
+    # user_autorizador = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=True, null=True)
     # dthranalise = models.DateTimeField(editable=False, default=timezone.now)
 
     class Meta:
         verbose_name = 'Solicitação'
         verbose_name_plural = 'Solicitações'
-        ordering = ['-autorization__status']
+        # ordering = ['-status']
+
+    def post_save(sender, instance, created, *args, **kwargs):
+        # import pdb; pdb.set_trace()
+        pass
 
     def __str__(self):
         numero = str(self.id).zfill(3)
         return str('Solicitação n°') + numero
 
-    def get_absolute_url(self): # new
-        return reverse('university_detail', args=[str(self.id)])
+@receiver(models.signals.post_save, sender=Solicitation)
+def execute_after_save(sender, instance, created, *args, **kwargs):
+    try:
+        instance.autorization.user = instance.user
+    except ObjectDoesNotExist:
+        pass

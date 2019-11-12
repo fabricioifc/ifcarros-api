@@ -4,6 +4,8 @@ coreapi==2.3.3
 coreschema==0.0.4
 Django==2.2.6
 django-admin-autoregister==1.0.0
+django-cors-headers==3.1.1
+django-model-utils==3.2.0
 django-rest-auth==0.9.5
 django-rest-swagger==2.2.0
 djangorestframework==3.10.3
@@ -23,4 +25,3 @@ six==1.12.0
 sqlparse==0.3.0
 uritemplate==3.0.0
 urllib3==1.25.6
-django-cors-headers==3.1.1

@@ -1,4 +1,5 @@
 import datetime
+from django.dispatch import receiver
 from model_utils import Choices
 from django.utils import timezone
 from django.db import models
@@ -17,8 +18,8 @@ class Autorization(Geral):
     solicitation = models.OneToOneField(Solicitation, on_delete=models.CASCADE, related_name="autorization")
     motivo = models.TextField(blank=False)
     dthrautorizacao = models.DateTimeField(editable=False, default=timezone.now, verbose_name='Autorizado em')
-    status = models.CharField(choices=STATUS, default=STATUS.analise, max_length=30, verbose_name='Status')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name='Autorizado por')
+    status = models.CharField(choices=STATUS, default=STATUS.analise, max_length=30, verbose_name="Status")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name='Autorizado por', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Autorização'
@@ -27,3 +28,8 @@ class Autorization(Geral):
     def __str__(self):
         numero = str(self.solicitation.id).zfill(3)
         return str('Solicitação n°') + numero
+
+# @receiver(models.signals.post_save, sender=Autorization)
+# def execute_after_save(sender, instance, created, *args, **kwargs):
+#     if created:
+#         pass

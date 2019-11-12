@@ -19,6 +19,8 @@ class User(AbstractUser):
     #     'Gestor', default=False, help_text='Indica que este usuário é Gestor da frota')
     # is_diretor = models.BooleanField(
     #     'Diretor', default=False, help_text='Indica que este usuário é Diretor do Campus')
+    # is_staff = models.BooleanField(
+    #     'Staff', default=False, help_text='Indica que este usuário tem acesso a área administrativa')
     is_superuser = models.BooleanField(
         'Admin', default=False, help_text='Indica que este usuário é Administrador')
 
