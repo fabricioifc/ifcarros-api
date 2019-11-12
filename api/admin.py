@@ -4,13 +4,25 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .models import *
 
+class AutorizationInline(admin.StackedInline):
+    readonly_fields = ['user']
+    model = Autorization
+    can_delete = False
+
 @admin.register(Autorization)
 class AutorizationAdmin(admin.ModelAdmin):
+    readonly_fields = ['user']
     list_display = ['__str__', 'get_user_sol', 'get_dthr_sol', 'dthrautorizacao', 'get_user_aut', 'get_status_sol']
     ordering = ['-dthrautorizacao']
 
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super(AutorizationAdmin, self).save_model(request, obj, form, change)
+
+    def status(self):
+        return u'%s' % self.solicitation.status   
     def get_user_aut(self, obj):
-        return obj.user_autorizador.name
+        return obj.user.name
     def get_user_sol(self, obj):
         return obj.solicitation.user.name
     def get_dthr_sol(self, obj):
@@ -29,9 +41,9 @@ class PassengerAdmin(admin.ModelAdmin):
 @admin.register(Solicitation)
 class SolicitationAdmin(admin.ModelAdmin):
     readonly_fields = ['user']
-    list_display = ['__str__', 'get_user_sol', 'dthrrequisicao', 'get_user_aut', 'get_dhtr_aut', 'status']
-    ordering = ['-dthrrequisicao', '-status']
-    list_filter = ('dthrrequisicao', 'status', 'autorization__user_autorizador__name', )
+    list_display = ['__str__', 'get_user_sol', 'dthrrequisicao', 'get_user_aut', 'get_dhtr_aut', 'get_status']
+    ordering = ['-dthrrequisicao']
+    list_filter = ('dthrrequisicao', 'autorization__status', 'autorization__user__name', )
     # actions = ['efetuar_autorizacao']
     
     def save_model(self, request, obj, form, change):
@@ -39,17 +51,18 @@ class SolicitationAdmin(admin.ModelAdmin):
         super(SolicitationAdmin, self).save_model(request, obj, form, change)
 
     def get_user_aut(self, obj):
-        return obj.autorization.user_autorizador.name
+        return obj.autorization.user.name if obj.autorization.user != None else None
     def get_dhtr_aut(self, obj):
         return obj.autorization.dthrautorizacao
     def get_user_sol(self, obj):
         return obj.user.name
-    
-        # return format_html("<a href='{url}'>{url}</a>", url=obj.firm_url)
+    def get_status(self, obj):
+        return obj.autorization.status
 
     get_user_sol.short_description = 'Solicitado por'
     get_user_aut.short_description = 'Autorizado por'
     get_dhtr_aut.short_description = 'Autorizador em'
+    inlines = (AutorizationInline, )
 
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
@@ -85,7 +98,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'username', 'password')}),
         (_('Personal info'), {'fields': ('name', 'siape', 'funcao', 'cpf')}),
         (_('Permissions'), {'fields': (
-            'is_active', 'is_superuser', 'groups', 'user_permissions')}),
+            'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         # (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
@@ -94,9 +107,9 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('email', 'username', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', 'name', 'is_active', 'is_superuser')
+    list_display = ('email', 'name', 'is_active', 'is_staff', 'is_superuser')
     # list_display = ('email', 'name', 'is_active', 'is_superuser', 'is_servidor', 'is_diretor', 'is_gestor')
     search_fields = ('email', 'name')
     ordering = ('email',)
     inlines = (UserProfileInline, )
-    list_filter = ('is_active', 'is_superuser')
+    list_filter = ('is_active', 'is_staff', 'is_superuser')
