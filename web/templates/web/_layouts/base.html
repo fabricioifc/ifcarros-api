@@ -46,7 +46,8 @@
               {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{user.email}}
+                    <img src="/media/{{ request.user.profile.avatar }}" height="35px" class="rounded">
+                    <!-- {user.username|capfirst} -->
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{% url 'web:profile' %}">Perfil</a>

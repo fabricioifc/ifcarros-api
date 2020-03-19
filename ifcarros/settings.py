@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_framework_swagger',
     'corsheaders',
+    'crispy_forms',
     'web',
 ]
 
@@ -166,3 +167,6 @@ SWAGGER_SETTINGS = {
 AUTH_USER_MODEL = 'api.User'
 LOGIN_REDIRECT_URL = 'web:home'
 LOGOUT_REDIRECT_URL = 'web:home'
+
+# Bootstrap forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

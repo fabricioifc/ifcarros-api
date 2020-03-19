@@ -3,16 +3,23 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm
 
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout, Fieldset, Div
+from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab
+
+
 from api.models import User, UserProfile
 
 class EditProfileForm(ModelForm):
     class Meta:
         model = User
-        fields = (
-            'name',
-            'siape',
-        )
+        fields = ('name', 'siape', 'funcao', 'cpf')
+        # fields = (
+        #     'name',
+        #     'siape',
+        # )
+            
 class ProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('cidade', 'endereco', 'avatar')
+        fields = ('dtnascimento', 'endereco', 'cidade', 'cep', 'avatar')
