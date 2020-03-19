@@ -1,0 +1,40 @@
+<!-- Estendemos do template base -->
+{% extends "web/_layouts/base.html" %}
+
+<!-- Bloco que define o <title></title> da nossa página -->
+{% block title %}ADS | Login{% endblock %}
+
+<!-- Bloco de conteúdo da nossa página -->    
+{% block conteudo %}
+    <div class="container-fluid">
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                <ul class="list-unstyled mb-0">
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        <form id="login-form" method="post" 
+            action="{% url 'web:login' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="username" name="username" value="admin@admin.com" placeholder="Informe seu E-mail">
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" name="password" id="password" class="form-control" value="admin" placeholder="Informe sua Senha">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="continuar">
+                <label class="form-check-label" for="continuar">Continuar logado?</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Acessar</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+    </div>
+{% endblock %}

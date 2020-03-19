@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
     url(r'^swagger', schema_view),
+    url(r'^web/', include('web.urls')),
 ]
 
 # urlpatterns += ([
