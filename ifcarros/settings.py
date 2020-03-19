@@ -1,4 +1,5 @@
 import os
+from django.conf.locale.pt_BR import formats as pt_br_formats
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -173,3 +174,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+pt_br_formats.DATETIME_FORMAT = "d/m/Y H:i"

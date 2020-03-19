@@ -1,4 +1,6 @@
 import datetime
+# from model_utils import Choices
+from django.urls import reverse # new
 from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver
 from model_utils import Choices
@@ -40,7 +42,7 @@ class Solicitation(Geral):
         # ordering = ['-status']
 
     def post_save(sender, instance, created, *args, **kwargs):
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         pass
 
     def __str__(self):

@@ -18,7 +18,7 @@ class Autorization(Geral):
     solicitation = models.OneToOneField(Solicitation, on_delete=models.CASCADE, related_name="autorization")
     motivo = models.TextField(blank=False)
     dthrautorizacao = models.DateTimeField(editable=False, default=timezone.now, verbose_name='Autorizado em')
-    status = models.CharField(choices=STATUS, default=STATUS.analise, max_length=30)
+    status = models.CharField(choices=STATUS, default=STATUS.analise, max_length=30, verbose_name="Status")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name='Autorizado por', null=True, blank=True)
 
     class Meta:
