@@ -3,7 +3,7 @@ from rest_framework import routers
 from django.urls import path
 from django.contrib import admin
 from . import views
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordChangeDoneView, PasswordResetConfirmView
 from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
 #from api.views import UserViewSet, CarViewSet, GroupViewSet, SolicitationViewSet, PassengerViewSet
@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^$', TemplateView.as_view(template_name='web/home/home.html'), name='home'),
     url(r'^profile/$', views.edit_profile, name='profile'),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
