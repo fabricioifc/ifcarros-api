@@ -14,6 +14,7 @@ schema_view = get_swagger_view(title='IF Carros')
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
+    url(r'^conta/', include('django.contrib.auth.urls')),
     url(r'^swagger', schema_view),
     url(r'^web/', include('web.urls')),
 ]

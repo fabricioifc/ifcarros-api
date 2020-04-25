@@ -18,8 +18,9 @@ app_name = 'web'
 
 urlpatterns = [
     url(r'^login/$', LoginView.as_view(redirect_authenticated_user=True), {'template_name': 'registration/login.html'}, name='login'),
+    url(r'^password_reset/$', PasswordResetView.as_view(), {'template_name': 'registration/password_reset_form.html'}, name='password_reset'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^$', TemplateView.as_view(template_name='web/home/home.html'), name='home'),
     url(r'^profile/$', views.edit_profile, name='profile'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    
 ]

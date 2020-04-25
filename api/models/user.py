@@ -43,8 +43,8 @@ class User(AbstractUser):
 class UserProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
-    dtnascimento = models.DateField()
-    endereco = models.CharField(max_length=255, verbose_name="Endereço")
-    cidade = models.CharField(max_length=60)
-    cep = models.CharField(max_length=8)
-    avatar = models.ImageField(upload_to='uploads', blank=True)
+    dtnascimento = models.DateField(blank=True, null=True)
+    endereco = models.CharField(max_length=255, verbose_name="Endereço", blank=True, null=True)
+    cidade = models.CharField(max_length=60, blank=True, null=True)
+    cep = models.CharField(max_length=8, blank=True, null=True)
+    avatar = models.ImageField(upload_to='uploads', blank=True, null=True)
