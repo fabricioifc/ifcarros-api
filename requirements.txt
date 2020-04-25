@@ -35,7 +35,7 @@ djangorestframework==3.10.3
 djangorestframework-jwt==1.11.0
 Faker==0.9.1
 filelock==3.0.12
-Flask==0.12.2
+Flask==1.0
 Flask-BabelEx==0.9.3
 Flask-Compress==1.4.0
 Flask-Gravatar==0.4.2
