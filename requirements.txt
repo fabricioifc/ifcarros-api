@@ -24,7 +24,7 @@ coverage==4.5.4
 cryptography==2.1.4
 cupshelpers==1.0
 defer==1.0.6
-Django==2.2.6
+Django==2.2.28
 django-admin-autoregister==1.0.0
 django-cors-headers==3.1.1
 django-crispy-forms==1.9.0
